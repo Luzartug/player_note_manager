@@ -1,1 +1,18 @@
-# stock_exchange_app
+# Player_note_manager
+
+## Description
+In this project, we want to create a web application that allows users to create a player and add their own note to the player. The application will use a Flask backend and a PostgreSQL database.
+
+## Installation
+
+### Pull image from docker hub
+docker compose up -d flask_db
+
+### Build image from Dockerfile
+docker compose build
+
+### Run the container
+docker compose up flask_app
+
+### If you change the app.py file, you need to rebuild the image
+docker compose up --build flask_app
