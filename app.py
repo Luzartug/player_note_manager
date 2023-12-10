@@ -33,7 +33,7 @@ def create_player():
     db.session.add(new_player)
     db.session.commit()
     return make_response(jsonify({'message': 'Player created'}), 201)
-  except e:
+  except Exception as e:
     return make_response(jsonify({'message': 'error creating player'}), 500)
 
 # get all players
@@ -42,7 +42,7 @@ def get_players():
   try:
     players = Player.query.all()
     return make_response(jsonify({'players': [player.json() for player in players]}), 200)
-  except e:
+  except Exception as e:
     return make_response(jsonify({'message': 'error getting players'}), 500)
 
 # get a player by id
@@ -53,7 +53,7 @@ def get_player(id):
     if player:
       return make_response(jsonify({'player': player.json()}), 200)
     return make_response(jsonify({'message': 'player not found'}), 404)
-  except e:
+  except Exception as e:
     return make_response(jsonify({'message': 'error getting player'}), 500)
 
 # update a player
@@ -68,7 +68,7 @@ def update_player(id):
       db.session.commit()
       return make_response(jsonify({'message': 'player updated'}), 200)
     return make_response(jsonify({'message': 'player not found'}), 404)
-  except e:
+  except Exception as e:
     return make_response(jsonify({'message': 'error updating player'}), 500)
 
 # delete a player
@@ -81,5 +81,5 @@ def delete_player(id):
       db.session.commit()
       return make_response(jsonify({'message': 'player deleted'}), 200)
     return make_response(jsonify({'message': 'player not found'}), 404)
-  except e:
+  except Exception as e:
     return make_response(jsonify({'message': 'error deleting player'}), 500)

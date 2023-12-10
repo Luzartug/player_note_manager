@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Player Management</title>
+</head>
+<body>
+  <h1>Player Management</h1>
+
+  <form id="playerForm">
+    <input type="text" id="nameInput" placeholder="Name">
+    <input type="number" id="noteInput" placeholder="Note">
+    <button type="submit">Add Player</button>
+  </form>
+
+  <div id="playerList"></div>
+
+  <script>
+    // Fetch all players on page load
+    fetchPlayers();
+
+    // Form submission handler
+    document.getElementById('playerForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      const name = document.getElementById('nameInput').value;
+      const note = parseInt(document.getElementById('noteInput').value);
+
+      addPlayer({ name, note });
+    });
+
+    // Fetch all players
+    function fetchPlayers() {
+      fetch('/players')
+        .then(response => response.json())
+        .then(data => displayPlayers(data.players))
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Display players in the list
+    function displayPlayers(players) {
+      const playerList = document.getElementById('playerList');
+      playerList.innerHTML = '';
+      
+      players.forEach(player => {
+        const playerDiv = document.createElement('div');
+        playerDiv.textContent = `${player.name} - Note: ${player.note}`;
+        playerList.appendChild(playerDiv);
+      });
+    }
+
+    // Add a player
+    function addPlayer(playerData) {
+      fetch('/player', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(playerData)
+      })
+      .then(response => {
+        if (response.ok) {
+          fetchPlayers(); // Refresh player list after adding
+        } else {
+          throw new Error('Failed to add player');
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    }
+  </script>
+</body>
+</html>
