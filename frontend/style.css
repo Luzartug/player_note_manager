@@ -1,61 +1,164 @@
-/* Style pour le conteneur principal */
-/* Style pour le conteneur principal */
+body {
+    margin: 0;
+    padding: 0;
+    background: url(badminton.jpg);
+    background-size: cover;
+    font-family: sans-serif;
+}
+
+.title {
+    text-align: center;
+    padding: 50px 0 20px;
+}
+
+.title h1 {
+    margin: 0;
+    padding: 0;
+    color: #262626;
+    text-transform: uppercase;
+    font-size: 36px;
+}
 .container {
-    max-width: 800px;
+    width: 50%;
+    height: 450px;
+    background: #fff;
     margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
+    border: 2px solid #fff;
+    box-shadow: 0 15px 40px rgba(0,0,0,.5);
 }
 
-/* Style pour le formulaire */
-#addPlayerForm {
-    padding: 20px;
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
+.container .left {
+    float: left;
+    width: 50%;
+    height: 400px;
+    background: url(image_form.jpg);
+    background-size: cover;
+    box-sizing: border-box;
 }
 
-/* Style pour les boutons */
-.button-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    /* Autres styles inchangés */
+.container .right {
+    float: right;
+    width: 50%;
+    height: 400px;
 }
 
-.button-container button {
-    border: none;
-    border-radius: 5px;
-    padding: 8px 16px;
-    margin-right: 10px;
-    cursor: pointer;
-    background-color: #0093E9;
-    background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
-    color: white;
-}
-
-.button-container button:hover {
-    background-color: #00b3ff; 
-}
-
-
-/* Style pour le conteneur d'image */
-.image-container {
-    width: 300px;
-    height: 200px;
-    background-color: #f2f2f2;
-}
-
-/* Style pour l'image à l'intérieur du conteneur */
-.image-container img {
+.formBorder {
     width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 10px;
+    padding: 80px 40px;
+    box-sizing: border-box;
+    height: 400px;
+    background: #fff;
+    box-sizing: border-box;
 }
+
+.formBorder label {
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    color: #909CE0;
+}
+
+.formBorder input {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.formBorder input[type="text"],
+.formBorder input[type="number"]
+{
+    border: none;
+    border-bottom: 2px solid #909CE0;
+    outline: none;
+    height: 40px;
+}
+
+.formBorder input[type="text"]:focus,
+.formBorder input[type="number"]:focus
+{
+    border-bottom: 2px solid #909CE0;
+}
+
+.formBorder #addPlayerForm button[type="button"]{
+    border: none;
+    outline: none;
+    height: 40px;
+    color: #fff;
+    background: #262626;
+    cursor: pointer;
+    width: 100%;
+}
+
+.formBorder #addPlayerForm button[type="button"]:hover{
+    background: #909CE0;
+}
+
+#addPlayerForm {
+    margin-bottom: 20px;
+}
+
+.formBorder .button-container {
+    /* Vos styles pour le conteneur de boutons */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 20px; 
+}
+
+.formBorder .button-container button {
+    /* Styles généraux pour tous les boutons */
+    border: none;
+    outline: none;
+    height: 40px;
+    color: #fff;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+}
+
+/* Style pour Update Player */
+.formBorder .button-container button:nth-child(1) {
+    background-color: orange;
+}
+.formBorder .button-container button:nth-child(1):hover {
+    background: #909CE0;
+}
+/* Style pour Delete Player */
+.formBorder .button-container button:nth-child(2) {
+    background-color: red;
+}
+.formBorder .button-container button:nth-child(2):hover {
+    background: #909CE0;
+}
+
+/* Style pour Display All Players */
+.formBorder .button-container button:nth-child(3) {
+    background-color: green;
+}
+.formBorder .button-container button:nth-child(3):hover {
+    background: #909CE0;
+}
+
+/* Display list */
+/* Style pour le popup */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Style pour le contenu du popup */
+.popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+
