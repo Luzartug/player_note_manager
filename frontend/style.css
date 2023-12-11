@@ -1,0 +1,61 @@
+/* Style pour le conteneur principal */
+/* Style pour le conteneur principal */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+/* Style pour le formulaire */
+#addPlayerForm {
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+/* Style pour les boutons */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    /* Autres styles inchangés */
+}
+
+.button-container button {
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: #0093E9;
+    background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+    color: white;
+}
+
+.button-container button:hover {
+    background-color: #00b3ff; 
+}
+
+
+/* Style pour le conteneur d'image */
+.image-container {
+    width: 300px;
+    height: 200px;
+    background-color: #f2f2f2;
+}
+
+/* Style pour l'image à l'intérieur du conteneur */
+.image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+}

@@ -4,29 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Players List</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="container">
+        <h1>Players List</h1>
 
-<h1>Players List</h1>
+        <!-- Add Player Form -->
+        <form id="addPlayerForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" required>
+            
+            <label for="note">Note:</label>
+            <input type="number" id="note" required>
 
-<!-- Add Player Form -->
-<form id="addPlayerForm">
-    <label for="name">Name:</label>
-    <input type="text" id="name" required>
-    
-    <label for="note">Note:</label>
-    <input type="number" id="note" required>
+            <button type="button" onclick="addPlayer()">Add Player</button>
+        </form>
+        <!-- Buttons for Update, Delete, and Display All Players -->
+        <div class="button-container">
+            <button type="button" onclick="updatePlayer()">Update Player</button>
+            <button type="button" onclick="deletePlayer()">Delete Player</button>
+            <button type="button" onclick="displayAllPlayers()">Display All Players</button>
+        </div>
 
-    <button type="button" onclick="addPlayer()">Add Player</button>
-</form>
+        <!-- Players List -->
+        <ul id="playersList"></ul>
+    </div>
 
-<!-- Buttons for Update, Delete, and Display All Players -->
-<button type="button" onclick="updatePlayer()">Update Player</button>
-<button type="button" onclick="deletePlayer()">Delete Player</button>
-<button type="button" onclick="displayAllPlayers()">Display All Players</button>
-
-<!-- Players List -->
-<ul id="playersList"></ul>
+    <div class="image-container">
+        <img src="foot.jpg" alt="Football">
+    </div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -88,15 +95,51 @@
 
         // Function to update a player
         window.updatePlayer = function () {
-            // Implement the update player logic here
-            alert('Update Player functionality is not implemented yet.');
+            // get the id of the player
+            const playerIdToUpdate = prompt('Enter the ID of the player to update:');
+            // update the new name and note of the player
+            const newName = prompt('Enter the new name:');
+            const newNote = parseInt(prompt('Enter the new note:'));
+
+            if (playerIdToUpdate && newName && !isNaN(newNote)) {
+                fetch(`http://localhost:3000/player/${playerIdToUpdate}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name: newName, note: newNote }),
+                })
+                .then(() => {
+                    fetchAndDisplayPlayers();
+                })
+                .catch(error => {
+                    console.error('Error updating player:', error);
+                });
+            } else {
+                alert('Please enter valid values.');
+            }
         };
+
 
         // Function to delete a player
         window.deletePlayer = function () {
-            // Implement the delete player logic here
-            alert('Delete Player functionality is not implemented yet.');
+            const playerIdToDelete = prompt('Enter the ID of the player to delete:');
+
+            if (playerIdToDelete) {
+                fetch(`http://localhost:3000/player/${playerIdToDelete}`, {
+                    method: 'DELETE',
+                })
+                .then(() => {
+                    fetchAndDisplayPlayers();
+                })
+                .catch(error => {
+                    console.error('Error deleting player:', error);
+                });
+            } else {
+                alert('Please enter a valid ID.');
+            }
         };
+
 
         // Function to display all players
         window.displayAllPlayers = function () {
