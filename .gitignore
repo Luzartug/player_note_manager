@@ -1,0 +1,4 @@
+__pycache___/
+.pytest_cache/
+.venv-player/
+tests/

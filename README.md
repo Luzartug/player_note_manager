@@ -6,13 +6,13 @@ In this project, we want to create a web application that allows users to create
 ## Installation
 
 ### Pull image from docker hub
-docker compose up -d flask_db
+docker compose up -d html_app
 
 ### Build image from Dockerfile
 docker compose build
 
 ### Run the container
-docker compose up flask_app
+docker compose up html_app
 
 ### If you change the app.py file, you need to rebuild the image
-docker compose up --build flask_app
+docker compose up --build html_app
