@@ -1,72 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Player Management</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Players List</title>
 </head>
 <body>
-  <h1>Player Management</h1>
 
-  <form id="playerForm">
-    <input type="text" id="nameInput" placeholder="Name">
-    <input type="number" id="noteInput" placeholder="Note">
-    <button type="submit">Add Player</button>
-  </form>
+<h1>Players List</h1>
 
-  <div id="playerList"></div>
+<!-- Add Player Form -->
+<form id="addPlayerForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" required>
+    
+    <label for="note">Note:</label>
+    <input type="number" id="note" required>
 
-  <script>
-    // Fetch all players on page load
-    fetchPlayers();
+    <button type="button" onclick="addPlayer()">Add Player</button>
+</form>
 
-    // Form submission handler
-    document.getElementById('playerForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-      
-      const name = document.getElementById('nameInput').value;
-      const note = parseInt(document.getElementById('noteInput').value);
+<!-- Buttons for Update, Delete, and Display All Players -->
+<button type="button" onclick="updatePlayer()">Update Player</button>
+<button type="button" onclick="deletePlayer()">Delete Player</button>
+<button type="button" onclick="displayAllPlayers()">Display All Players</button>
 
-      addPlayer({ name, note });
-    });
+<!-- Players List -->
+<ul id="playersList"></ul>
 
-    // Fetch all players
-    function fetchPlayers() {
-      fetch('/players')
-        .then(response => response.json())
-        .then(data => displayPlayers(data.players))
-        .catch(error => console.error('Error:', error));
-    }
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Function to fetch and display players
+        function fetchAndDisplayPlayers() {
+            fetch('http://localhost:3000/players')
+                .then(response => response.json())
+                .then(data => {
+                    const players = data.players;
+                    const playersList = document.getElementById('playersList');
+                    playersList.innerHTML = ''; // Clear existing list items
 
-    // Display players in the list
-    function displayPlayers(players) {
-      const playerList = document.getElementById('playerList');
-      playerList.innerHTML = '';
-      
-      players.forEach(player => {
-        const playerDiv = document.createElement('div');
-        playerDiv.textContent = `${player.name} - Note: ${player.note}`;
-        playerList.appendChild(playerDiv);
-      });
-    }
-
-    // Add a player
-    function addPlayer(playerData) {
-      fetch('/player', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(playerData)
-      })
-      .then(response => {
-        if (response.ok) {
-          fetchPlayers(); // Refresh player list after adding
-        } else {
-          throw new Error('Failed to add player');
+                    players.forEach(player => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = `ID: ${player.id}, Name: ${player.name}, Note: ${player.note}`;
+                        playersList.appendChild(listItem);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
         }
-      })
-      .catch(error => console.error('Error:', error));
-    }
-  </script>
+
+        // Fetch and display players on page load
+        fetchAndDisplayPlayers();
+
+        // Function to add a player
+        window.addPlayer = function () {
+            const nameInput = document.getElementById('name');
+            const noteInput = document.getElementById('note');
+
+            const name = nameInput.value;
+            const note = parseInt(noteInput.value, 10);
+
+            if (name && !isNaN(note)) {
+                // Send a POST request to add a new player
+                fetch('http://localhost:3000/player', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, note }),
+                })
+                .then(() => {
+                    // Fetch and display updated players after adding a new player
+                    fetchAndDisplayPlayers();
+                })
+                .catch(error => {
+                    console.error('Error adding player:', error);
+                });
+            } else {
+                alert('Please enter valid name and note values.');
+            }
+
+            // Clear the form inputs
+            nameInput.value = '';
+            noteInput.value = '';
+        };
+
+        // Function to update a player
+        window.updatePlayer = function () {
+            // Implement the update player logic here
+            alert('Update Player functionality is not implemented yet.');
+        };
+
+        // Function to delete a player
+        window.deletePlayer = function () {
+            // Implement the delete player logic here
+            alert('Delete Player functionality is not implemented yet.');
+        };
+
+        // Function to display all players
+        window.displayAllPlayers = function () {
+            // Fetch and display players
+            fetchAndDisplayPlayers();
+        };
+    });
+</script>
+
 </body>
 </html>

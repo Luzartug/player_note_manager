@@ -23,13 +23,12 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
   frontend:
-    container_name: frontend_app
-    build:
-      context: .
-      dockerfile: frontend/Dockerfile
+    container_name: html_app
+    image: lucaspascal/html_app:1.0.0
+    build: ./frontend
     ports:
-      - "80:80"
+      - "8080:80"
     depends_on:
-      - flask_app 
+      - flask_app
 volumes:
   pgdata: {}
