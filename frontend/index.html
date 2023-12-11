@@ -31,7 +31,7 @@
 
     // Fetch all players
     function fetchPlayers() {
-      fetch('/players')
+      fetch('http://flask_app:3000/players')
         .then(response => response.json())
         .then(data => displayPlayers(data.players))
         .catch(error => console.error('Error:', error));
@@ -51,7 +51,7 @@
 
     // Add a player
     function addPlayer(playerData) {
-      fetch('/player', {
+      fetch('http://flask_app:3000/player', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
